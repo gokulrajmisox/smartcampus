@@ -35,6 +35,14 @@ def test_offline_response_navigation():
     assert "Library" in response["locations"]
     assert "Food Court" in response["locations"]
 
+def test_get_response_accepts_chat_role():
+    """Chat UI callers may pass the message role as a keyword argument."""
+    assistant = GeminiAssistant(api_key="")
+
+    response, _ = assistant.get_response("Tell me about the library", role="user")
+
+    assert "Central Library" in response["text"]
+
 def test_offline_response_location_details():
     """Test location details parsing in fallback offline mode."""
     assistant = GeminiAssistant(api_key="")

@@ -177,8 +177,19 @@ class GeminiAssistant:
             r'directions?\s+(?:from\s+)?([\w\s]+)\s+to\s+([\w\s]+)'
         ]
 
-    def get_response(self, query: str, context: Optional[Dict[str, Any]] = None) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-        """Process user query and return the response and updated context."""
+    def get_response(
+        self,
+        query: str,
+        context: Optional[Dict[str, Any]] = None,
+        *,
+        role: Optional[str] = None,
+    ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+        """Process a user query and return the response and updated context.
+
+        ``role`` is accepted for compatibility with chat UI callers that pass
+        the Streamlit message role. The campus assistant does not need that
+        value for its parsing logic, so it is intentionally unused.
+        """
         logger.info(f"Processing AI assistant query: '{query}'")
         try:
             if context is None:

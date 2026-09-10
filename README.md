@@ -114,6 +114,16 @@ uv run streamlit run app.py
 
 ---
 
+## ☁️ Deploy on Render
+
+This repository includes a [`render.yaml`](render.yaml) Blueprint. In Render, choose **New → Blueprint**, connect this GitHub repository, and select the `render.yaml` file. Render will install the locked dependencies and start Streamlit on the platform-provided port.
+
+Before deploying, add `GEMINI_API_KEY` under the service's **Environment** settings. The application also works in offline fallback mode when the key is not provided, but Gemini-powered general questions will be unavailable.
+
+The health check is available at `/_stcore/health`. Do not commit local `secrets.toml` or API keys; configure secrets in Render instead.
+
+---
+
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
