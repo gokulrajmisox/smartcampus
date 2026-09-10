@@ -1,0 +1,104 @@
+/* Import Inter Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Global Reset & Typography */
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* Hide default Streamlit elements */
+header[data-testid="stHeader"] {
+    display: none !important;
+}
+footer {
+    display: none !important;
+}
+#MainMenu {
+    display: none !important;
+}
+.stDeployButton {
+    display: none !important;
+}
+
+/* Reduce whitespace */
+.block-container {
+    padding-top: 2rem !important;
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+    max-width: 1400px !important;
+}
+
+/* Sidebar styling */
+[data-testid="stSidebar"] {
+    background-color: #FFFFFF !important;
+    border-right: 1px solid #E2E8F0 !important;
+}
+[data-testid="stSidebar"] .block-container {
+    padding-top: 2rem !important;
+}
+
+/* Clean up buttons */
+div.stButton > button {
+    border-radius: 8px !important;
+    border: 1px solid #E2E8F0 !important;
+    font-weight: 500 !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.2s ease !important;
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+div.stButton > button:hover {
+    border-color: #CBD5E1 !important;
+    background: #F8FAFC !important;
+}
+div.stButton > button[kind="primary"] {
+    background: #0F172A !important;
+    color: #FFFFFF !important;
+    border: none !important;
+}
+div.stButton > button[kind="primary"]:hover {
+    background: #1E293B !important;
+}
+
+/* Inputs */
+.stTextInput input, .stSelectbox > div > div {
+    border-radius: 8px !important;
+    border: 1px solid #E2E8F0 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+    padding-left: 12px !important;
+}
+
+/* Danger Button (Emergency) */
+.emergency-btn > div > button {
+    background-color: #FEF2F2 !important;
+    color: #DC2626 !important;
+    border: 1px solid #FECACA !important;
+    font-weight: 600 !important;
+}
+.emergency-btn > div > button:hover {
+    background-color: #FEE2E2 !important;
+}
+
+/* Cards (using containers) */
+.card-style {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Headers */
+h1, h2, h3 {
+    color: #0F172A !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+}
+
+/* Map Container */
+.map-container iframe {
+    border-radius: 12px !important;
+    border: 1px solid #E2E8F0 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+}

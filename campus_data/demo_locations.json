@@ -1,0 +1,254 @@
+{
+  "locations": [
+    {
+      "id": "main_gate",
+      "name": "Main Gate",
+      "type": "entrance",
+      "building": "Perimeter",
+      "coordinates": {
+        "lat": 12.8715,
+        "lng": 80.2188
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false
+      },
+      "description": "The main entrance to the campus with security checkpoints.",
+      "aliases": [
+        "entrance",
+        "front gate",
+        "main gate"
+      ]
+    },
+    {
+      "id": "security_office",
+      "name": "Security Office",
+      "type": "emergency",
+      "building": "Perimeter",
+      "coordinates": {
+        "lat": 12.87281,
+        "lng": 80.21986
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false
+      },
+      "description": "Campus security operations center. Available 24/7 for emergencies.",
+      "aliases": [
+        "security",
+        "guards",
+        "help desk"
+      ]
+    },
+    {
+      "id": "block_a",
+      "name": "Block A",
+      "type": "academic",
+      "building": "Block A",
+      "coordinates": {
+        "lat": 12.87085,
+        "lng": 80.2176
+      },
+      "accessibility": {
+        "wheelchair": false,
+        "stairs_required": true
+      },
+      "description": "Primary academic building hosting various department classrooms.",
+      "aliases": [
+        "academic block 1",
+        "block a",
+        "main building"
+      ]
+    },
+    {
+      "id": "block_b",
+      "name": "Block B",
+      "type": "academic",
+      "building": "Block B",
+      "coordinates": {
+        "lat": 12.87333,
+        "lng": 80.22014
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false,
+        "elevator": true
+      },
+      "description": "Modern academic block with fully accessible facilities.",
+      "aliases": [
+        "academic block 2",
+        "block b"
+      ]
+    },
+    {
+      "id": "library",
+      "name": "Library",
+      "type": "academic",
+      "building": "Central Library",
+      "coordinates": {
+        "lat": 12.8745,
+        "lng": 80.2208
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false,
+        "elevator": true,
+        "ramp": true
+      },
+      "description": "Central library with reading rooms and digital resources.",
+      "aliases": [
+        "central library",
+        "reading room",
+        "books"
+      ]
+    },
+    {
+      "id": "cse_lab",
+      "name": "CSE Laboratory",
+      "type": "laboratory",
+      "building": "Block B",
+      "floor": 2,
+      "coordinates": {
+        "lat": 12.87341,
+        "lng": 80.21885
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false,
+        "elevator": true
+      },
+      "description": "Computer Science and Engineering main laboratory.",
+      "aliases": [
+        "computer lab",
+        "cse",
+        "coding lab"
+      ]
+    },
+    {
+      "id": "mech_lab",
+      "name": "Mechanical Laboratory",
+      "type": "laboratory",
+      "building": "Block A",
+      "floor": 1,
+      "coordinates": {
+        "lat": 12.87429,
+        "lng": 80.22229
+      },
+      "accessibility": {
+        "wheelchair": false,
+        "stairs_required": true
+      },
+      "description": "Heavy machinery and mechanical engineering lab.",
+      "aliases": [
+        "mech lab",
+        "workshop"
+      ]
+    },
+    {
+      "id": "cafeteria",
+      "name": "Cafeteria",
+      "type": "food",
+      "building": "Student Center",
+      "coordinates": {
+        "lat": 12.87632,
+        "lng": 80.21855
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false,
+        "ramp": true
+      },
+      "description": "Central dining hall and cafeteria for students and staff.",
+      "aliases": [
+        "food court",
+        "canteen",
+        "dining hall"
+      ]
+    },
+    {
+      "id": "auditorium",
+      "name": "Auditorium",
+      "type": "event",
+      "building": "Event Center",
+      "coordinates": {
+        "lat": 12.87614,
+        "lng": 80.22015
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false,
+        "ramp": true
+      },
+      "description": "Large venue for university events and conferences.",
+      "aliases": [
+        "main auditorium",
+        "event hall"
+      ]
+    },
+    {
+      "id": "hostel",
+      "name": "Hostel",
+      "type": "residential",
+      "building": "Hostel Block",
+      "coordinates": {
+        "lat": 12.87448,
+        "lng": 80.21839
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false,
+        "elevator": true
+      },
+      "description": "On-campus student residential facility.",
+      "aliases": [
+        "dorms",
+        "residence",
+        "hostel block"
+      ]
+    },
+    {
+      "id": "medical_center",
+      "name": "Medical Center",
+      "type": "emergency",
+      "building": "Health Services",
+      "coordinates": {
+        "lat": 12.87495,
+        "lng": 80.21886
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false,
+        "ramp": true
+      },
+      "description": "Campus first aid and medical center. Open 24/7.",
+      "aliases": [
+        "hospital",
+        "first aid",
+        "clinic",
+        "health center"
+      ]
+    },
+    {
+      "id": "accessible_washroom",
+      "name": "Accessible Washroom",
+      "type": "facility",
+      "building": "Block B",
+      "floor": 1,
+      "coordinates": {
+        "lat": 12.8714,
+        "lng": 80.22083
+      },
+      "accessibility": {
+        "wheelchair": true,
+        "stairs_required": false
+      },
+      "description": "Wheelchair accessible washroom located on the ground floor.",
+      "aliases": [
+        "restroom",
+        "toilet",
+        "washroom",
+        "accessible toilet"
+      ]
+    }
+  ]
+}

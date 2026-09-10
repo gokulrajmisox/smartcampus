@@ -3,6 +3,7 @@ from google.genai import types
 from typing import Dict, Any, Optional, List, Tuple
 import re
 import os
+import json
 from datetime import datetime
 from difflib import SequenceMatcher
 from src.logger import logger
@@ -20,7 +21,7 @@ class GeminiAssistant:
         """Initialize the Gemini AI assistant with campus knowledge."""
         # Use provided API key or fallback to environment variables
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
-        
+
         if self.api_key:
             try:
                 self.client = genai.Client(api_key=self.api_key)
@@ -31,146 +32,31 @@ class GeminiAssistant:
         else:
             logger.warning("No Gemini API key provided. Running assistant in local offline fallback mode.")
             self.client = None
-            
-        self.campus_info = {
-            "Flag post": {
-                "name": "Main Flag Post",
-                "location": "Campus Entrance",
-                "hours": "24/7",
-                "facilities": ["Information Board", "Security Post"],
-                "nearby": ["Entry Gate", "Exit Gate"],
-                "description": "The central flag post marking the campus entrance"
-            },
-            "Entry gate": {
-                "name": "Main Entry Gate",
-                "location": "Campus Perimeter",
-                "hours": "24/7",
-                "facilities": ["Security Booth", "Visitor Registration", "Information Desk"],
-                "nearby": ["Flag Post", "Check Post 1"],
-                "description": "Primary entrance point with security checkpoints"
-            },
-            "Exit gate": {
-                "name": "Exit Gate",
-                "location": "Campus Perimeter",
-                "hours": "24/7",
-                "facilities": ["Security Booth", "Vehicle Check Point"],
-                "nearby": ["Flag Post", "Check Post 2"],
-                "description": "Main exit point from campus"
-            },
-            "Check post 1": {
-                "name": "Check Post 1",
-                "location": "North Campus",
-                "hours": "24/7",
-                "facilities": ["Security Check", "Visitor Registration"],
-                "nearby": ["Entry Gate", "Acad 1"],
-                "description": "Northern security checkpoint"
-            },
-            "Check post 2": {
-                "name": "Check Post 2",
-                "location": "South Campus",
-                "hours": "24/7",
-                "facilities": ["Security Check", "Information Desk"],
-                "nearby": ["Exit Gate", "Acad 2"],
-                "description": "Southern security checkpoint"
-            },
-            "Acad 1": {
-                "name": "Academic Block 1",
-                "location": "Academic Zone",
-                "hours": "7:00 AM - 6:00 PM",
-                "facilities": ["Classrooms", "Labs", "Faculty Offices", "Seminar Halls"],
-                "nearby": ["Library", "Faculty Block"],
-                "description": "Primary academic building with modern facilities"
-            },
-            "Acad 2": {
-                "name": "Academic Block 2",
-                "location": "Academic Zone",
-                "hours": "7:00 AM - 6:00 PM",
-                "facilities": ["Lecture Halls", "Computer Labs", "Study Areas"],
-                "nearby": ["Library", "Food Court"],
-                "description": "Secondary academic building focusing on specialized courses"
-            },
-            "Library": {
-                "name": "Central Library",
-                "location": "Academic Zone",
-                "hours": "8:00 AM - 10:00 PM",
-                "facilities": ["Reading Rooms", "Digital Library", "Group Study Areas", "Research Section"],
-                "nearby": ["Acad 1", "Acad 2"],
-                "description": "Multi-story library with extensive collection and study spaces"
-            },
-            "Food Court": {
-                "name": "Campus Food Court",
-                "location": "Student Zone",
-                "hours": "7:30 AM - 9:00 PM",
-                "facilities": ["Multiple Food Stalls", "Seating Area", "Vending Machines"],
-                "nearby": ["Library", "Hostel Block"],
-                "description": "Central dining facility with diverse food options"
-            },
-            "Faculty Block": {
-                "name": "Faculty Block",
-                "location": "Academic Zone",
-                "hours": "9:00 AM - 5:00 PM",
-                "facilities": ["Faculty Offices", "Conference Rooms", "Meeting Areas"],
-                "nearby": ["Acad 1", "Library"],
-                "description": "Dedicated building for faculty offices and administrative work"
-            },
-            "Hostel Block": {
-                "name": "Student Hostel",
-                "location": "Residential Zone",
-                "hours": "24/7",
-                "facilities": ["Dormitories", "Common Rooms", "Laundry", "Recreation Areas"],
-                "nearby": ["Food Court", "Sports Facilities"],
-                "description": "Student accommodation with modern amenities"
-            },
-            "Cricket Ground": {
-                "name": "Cricket Ground",
-                "location": "Sports Zone",
-                "hours": "6:00 AM - 7:00 PM",
-                "facilities": ["Cricket Field", "Practice Nets", "Pavilion"],
-                "nearby": ["Football Ground", "Basketball Court"],
-                "description": "Regulation-size cricket ground with practice facilities"
-            },
-            "Basket Ball": {
-                "name": "Basketball Court",
-                "location": "Sports Zone",
-                "hours": "6:00 AM - 7:00 PM",
-                "facilities": ["Basketball Court", "Seating Area", "Floodlights"],
-                "nearby": ["Volleyball Court", "Tennis Court"],
-                "description": "Standard basketball court with spectator seating"
-            },
-            "Volley Ball": {
-                "name": "Volleyball Court",
-                "location": "Sports Zone",
-                "hours": "6:00 AM - 7:00 PM",
-                "facilities": ["Volleyball Court", "Practice Area"],
-                "nearby": ["Basketball Court", "Tennis Court"],
-                "description": "Regulation volleyball court with practice areas"
-            },
-            "Tennis Ball": {
-                "name": "Tennis Court",
-                "location": "Sports Zone",
-                "hours": "6:00 AM - 7:00 PM",
-                "facilities": ["Tennis Courts", "Practice Wall", "Equipment Room"],
-                "nearby": ["Volleyball Court", "Basketball Court"],
-                "description": "Professional tennis courts with practice facilities"
-            },
-            "Foot Ball": {
-                "name": "Football Ground",
-                "location": "Sports Zone",
-                "hours": "6:00 AM - 7:00 PM",
-                "facilities": ["Football Field", "Practice Area", "Changing Rooms"],
-                "nearby": ["Cricket Ground", "Rest Area"],
-                "description": "Full-size football field with training areas"
-            },
-            "Rest Area": {
-                "name": "Campus Rest Area",
-                "location": "Central Campus",
-                "hours": "24/7",
-                "facilities": ["Benches", "Shade Areas", "Water Points", "Vending Machines"],
-                "nearby": ["Food Court", "Sports Zone"],
-                "description": "Outdoor relaxation areas spread across campus"
-            }
-        }
-        
+
+        self.campus_info = {}
+        try:
+            with open("campus_data/demo_locations.json", "r", encoding="utf-8") as f:
+                data = json.load(f)
+                for loc in data.get("locations", []):
+                    self.campus_info[loc["name"]] = {
+                        "name": loc["name"],
+                        "location": loc.get("building", ""),
+                        "hours": "Variable",
+                        "facilities": ["Accessible" if loc.get("accessibility", {}).get("wheelchair") else "Standard"],
+                        "nearby": loc.get("aliases", []),
+                        "aliases": loc.get("aliases", []),
+                        "description": loc.get("description", "")
+                    }
+        except Exception as e:
+            logger.error(f"Error loading demo locations in assistant: {e}")
+
+        self.roles_data = {}
+        try:
+            with open("campus_data/roles.json", "r", encoding="utf-8") as f:
+                self.roles_data = json.load(f).get("roles", {})
+        except Exception as e:
+            logger.error(f"Error loading roles: {e}")
+
         self.navigation_patterns = [
             r'(?:how (?:do|can|to))?\s*(?:get|go|walk|reach)\s+(?:from\s+)?([\w\s]+)\s+to\s+([\w\s]+)',
             r'(?:show|find|give)\s+(?:me\s+)?(?:the\s+)?(?:route|path|way|directions?)\s+(?:from\s+)?([\w\s]+)\s+to\s+([\w\s]+)',
@@ -182,13 +68,12 @@ class GeminiAssistant:
         query: str,
         context: Optional[Dict[str, Any]] = None,
         *,
-        role: Optional[str] = None,
+        role: Optional[str] = "Student",
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-        """Process a user query and return the response and updated context.
+        """Process a query and return the response plus updated context.
 
-        ``role`` is accepted for compatibility with chat UI callers that pass
-        the Streamlit message role. The campus assistant does not need that
-        value for its parsing logic, so it is intentionally unused.
+        ``role`` is optional for backwards compatibility with existing
+        callers. It is used to tailor Gemini's general campus responses.
         """
         logger.info(f"Processing AI assistant query: '{query}'")
         try:
@@ -198,19 +83,19 @@ class GeminiAssistant:
                     'last_query_type': None,
                     'conversation_history': []
                 }
-                
+
             query_lower = query.lower()
             response = self._initialize_response()
-            
+
             locations = self._extract_locations(query_lower, context)
-            
+
             if self._is_navigation_query(query_lower):
                 response.update(self._handle_navigation_query(query_lower, locations))
             elif locations:
                 response.update(self._handle_location_query(locations[0], query_lower))
             else:
-                response.update(self._handle_general_query(query_lower))
-            
+                response.update(self._handle_general_query(query_lower, role=role or "Student"))
+
             # Update context
             if response['locations']:
                 context['last_location'] = response['locations'][-1]
@@ -218,9 +103,9 @@ class GeminiAssistant:
                 'timestamp': response['timestamp'],
                 'query_understood': response['query_understood']
             })
-            
+
             return response, context
-            
+
         except Exception as e:
             logger.error(f"Error handling query assistant: {e}", exc_info=True)
             err_res = self._create_error_response(str(e))
@@ -229,7 +114,7 @@ class GeminiAssistant:
     def _extract_locations(self, query: str, context: Dict) -> list:
         """Extract locations using enhanced fuzzy matching."""
         locations = []
-        
+
         for pattern in self.navigation_patterns:
             matches = re.search(pattern, query)
             if matches:
@@ -238,51 +123,52 @@ class GeminiAssistant:
                     best_match = self._find_best_matching_location(pot_loc)
                     if best_match:
                         locations.append(best_match)
-        
+
         if not locations:
             words = query.split()
             for word in words:
                 best_match = self._find_best_matching_location(word)
                 if best_match and best_match not in locations:
                     locations.append(best_match)
-        
+
         if not locations and ('here' in query or 'there' in query):
             if context.get('last_location'):
                 locations.append(context['last_location'])
-        
+
         return locations
 
-    def _find_best_matching_location(self, query_term: str, threshold: float = 0.6) -> Optional[str]:
+    def _find_best_matching_location(self, query_term: str, threshold: float = 0.75) -> Optional[str]:
         """Find best matching location using fuzzy matching."""
         best_match = None
         highest_score = threshold
         query_normalized = normalize_location_name(query_term)
-        
+
         for loc_key, loc_info in self.campus_info.items():
             score = get_string_similarity(query_normalized, normalize_location_name(loc_key))
             if score > highest_score:
                 highest_score = score
                 best_match = loc_key
-            
+
             score = get_string_similarity(query_normalized, normalize_location_name(loc_info['name']))
             if score > highest_score:
                 highest_score = score
                 best_match = loc_key
-            
+
             variations = [
                 loc_key.replace('_', ' '),
                 loc_info['name'].lower(),
                 loc_key.replace('block', '').strip(),
                 loc_key.replace('court', '').strip(),
-                loc_key.replace('ground', '').strip()
+                loc_key.replace('ground', '').strip(),
+                *loc_info.get('aliases', [])
             ]
-            
+
             for variation in variations:
                 score = get_string_similarity(query_normalized, normalize_location_name(variation))
                 if score > highest_score:
                     highest_score = score
                     best_match = loc_key
-        
+
         return best_match
 
     def _initialize_response(self) -> Dict[str, Any]:
@@ -307,7 +193,7 @@ class GeminiAssistant:
             start_loc, end_loc = locations[0], locations[1]
             start_info = self.campus_info[start_loc]
             end_info = self.campus_info[end_loc]
-            
+
             return {
                 "text": f"### 🗺️ Navigation Instructions\nI'll help you get from {start_info['name']} to {end_info['name']}.\n\n**Start Point:** {start_info['location']}\n**Destination:** {end_info['location']}\n**Notable Landmarks:** Near {', '.join(end_info['nearby'])}\n\n*The route is now displayed on the map*\n\n**Additional Information:**\n- Destination Hours: {end_info['hours']}\n- Available Facilities: {', '.join(end_info['facilities'])}",
                 "show_route": True,
@@ -316,7 +202,7 @@ class GeminiAssistant:
                 "locations": locations,
                 "query_understood": True
             }
-        
+
         return {
             "text": "### 🤔 Need More Information\nPlease specify both start and destination locations. For example:\n- \"How do I get from the library to the cafeteria?\"\n- \"Show me the way from the entrance to the academic block\"\n",
             "show_route": False,
@@ -326,21 +212,21 @@ class GeminiAssistant:
     def _handle_location_query(self, location: str, query: str) -> Dict[str, Any]:
         """Handle queries about specific locations."""
         info = self.campus_info[location]
-        
+
         if "hour" in query or "time" in query or "open" in query:
             response_text = f"### ⏰ {info['name']} Hours\n- **Operating Hours:** {info['hours']}\n- **Location:** {info['location']}"
         elif "facilities" in query or "available" in query:
             response_text = f"### 🏢 {info['name']} Facilities\n- **Available Facilities:**\n" + "\n".join([f"  • {f}" for f in info['facilities']])
         else:
             response_text = f"### 📍 {info['name']}\n- **Description:** {info['description']}\n- **Location:** {info['location']}\n- **Hours:** {info['hours']}\n- **Nearby:** {', '.join(info['nearby'])}"
-            
+
         return {
             "text": response_text,
             "show_route": False,
             "locations": [location]
         }
 
-    def _handle_general_query(self, query: str) -> Dict[str, Any]:
+    def _handle_general_query(self, query: str, role: str = "Student") -> Dict[str, Any]:
         """Handle general queries about campus using Gemini AI."""
         if self.client:
             try:
@@ -348,21 +234,28 @@ class GeminiAssistant:
                 for loc, info in self.campus_info.items():
                     campus_context += f"- {info['name']} ({loc}): {info['description']}\n"
                     campus_context += f"  Hours: {info['hours']}, Facilities: {', '.join(info['facilities'])}\n"
-                
-                prompt = f"""You are a helpful campus navigation assistant. Answer the user's question about the campus using the provided information.
+
+                role_info = self.roles_data.get(role, {})
+                role_focus = role_info.get("focus", "general campus navigation")
+
+                prompt = f"""You are CampusAI, an inclusive and intelligent Smart Campus Copilot.
+Your current user role is: {role}. You should focus your answers on: {role_focus}.
+
+Answer the user's question about the campus using the provided information.
+IMPORTANT: You support Multilingual queries. If the user asks in Tamil or Hindi, you MUST reply in that language. Otherwise, reply in English.
 
 {campus_context}
 
 User Question: {query}
 
-Please provide a helpful, informative response about the campus. If the question is about navigation, suggest they use the route planning feature."""
+Please provide a helpful, action-oriented response. If the question is about navigation, explicitly suggest they use the "Find Path" route planning feature in the sidebar. Do NOT hallucinate information not provided."""
 
                 logger.info("Querying Gemini GenAI model...")
                 response = self.client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.5-flash",
                     contents=prompt
                 )
-                
+
                 return {
                     "text": response.text or "I apologize, but I couldn't generate a response. Please try asking in a different way.",
                     "show_route": False,
@@ -372,7 +265,7 @@ Please provide a helpful, informative response about the campus. If the question
             except Exception as e:
                 logger.error(f"Gemini generation error: {e}", exc_info=True)
                 pass
-        
+
         return {
             "text": """### 🎓 Campus Navigation Help
 I can help you with:

@@ -21,13 +21,13 @@ def setup_logger(name: str = "campus_navigator") -> logging.Logger:
     """Configure and return a structured JSON logger."""
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
-    
+
     # Avoid duplicate handlers if setup is called multiple times
     if not logger.handlers:
         handler = logging.StreamHandler(sys.stdout)
         handler.setFormatter(JsonFormatter())
         logger.addHandler(handler)
-        
+
     return logger
 
 logger = setup_logger()

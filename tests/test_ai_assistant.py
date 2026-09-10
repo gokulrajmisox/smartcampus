@@ -15,52 +15,51 @@ def test_fuzzy_matching():
     """Test location matches map successfully to exact POI keys."""
     # Initialize offline assistant
     assistant = GeminiAssistant(api_key="")
-    
+
     assert assistant._find_best_matching_location("library") == "Library"
-    assert assistant._find_best_matching_location("acad 1") == "Acad 1"
-    assert assistant._find_best_matching_location("hostel") == "Hostel Block"
-    assert assistant._find_best_matching_location("entrance") == "Entry gate"
+    assert assistant._find_best_matching_location("academic block 1") == "Block A"
+    assert assistant._find_best_matching_location("entrance") == "Main Gate"
 
 def test_offline_response_navigation():
     """Test navigation parsing in fallback offline mode."""
     assistant = GeminiAssistant(api_key="")
-    query = "how to get from library to food court?"
-    
+    query = "how to get from library to cafeteria?"
+
     response, context = assistant.get_response(query)
-    
+
     assert response["show_route"] is True
     assert response["start"] == "Library"
-    assert response["end"] == "Food Court"
+    assert response["end"] == "Cafeteria"
     assert response["query_understood"] is True
     assert "Library" in response["locations"]
-    assert "Food Court" in response["locations"]
+    assert "Cafeteria" in response["locations"]
 
 def test_get_response_accepts_chat_role():
-    """Chat UI callers may pass the message role as a keyword argument."""
+    """Chat callers can pass a role without raising TypeError."""
     assistant = GeminiAssistant(api_key="")
 
-    response, _ = assistant.get_response("Tell me about the library", role="user")
+    response, _ = assistant.get_response("Tell me about the library", role="Faculty")
 
-    assert "Central Library" in response["text"]
+    assert response["locations"]
 
 def test_offline_response_location_details():
     """Test location details parsing in fallback offline mode."""
     assistant = GeminiAssistant(api_key="")
     query = "Tell me about academic block 1"
-    
+
     response, context = assistant.get_response(query)
-    
+
     assert response["show_route"] is False
-    assert "Academic Block 1" in response["text"]
-    assert "Acad 1" in response["locations"]
+    assert "Block A" in response["text"]
+    assert "Block A" in response["locations"]
 
 def test_offline_response_fallback_help():
     """Test fallback details list returned if query doesn't match any patterns."""
     assistant = GeminiAssistant(api_key="")
     query = "What is the weather today?"
-    
+
     response, context = assistant.get_response(query)
-    
+
     assert response["show_route"] is False
     assert response["query_understood"] is False
     assert "Campus Navigation Help" in response["text"]

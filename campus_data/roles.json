@@ -1,0 +1,34 @@
+{
+  "roles": {
+    "Student": {
+      "focus": "academics, classes, events, library, hostels, cafeteria",
+      "greeting": "Hi! I can help you find your classes, study spots, or food.",
+      "emergency_contacts": ["Security Office", "Medical Center"]
+    },
+    "Faculty": {
+      "focus": "academic blocks, offices, meeting rooms, administration",
+      "greeting": "Hello Professor. How can I assist you with campus navigation today?",
+      "emergency_contacts": ["Security Office"]
+    },
+    "Visitor": {
+      "focus": "parking, main gate, administration, auditorium, guest house",
+      "greeting": "Welcome to CampusAI! I can help you find your way around.",
+      "emergency_contacts": ["Security Office", "Medical Center"]
+    },
+    "Security": {
+      "focus": "gates, emergency exits, perimeters, surveillance points",
+      "greeting": "Security mode active. Fast-tracking emergency and perimeter routes.",
+      "emergency_contacts": ["Medical Center", "Main Gate"]
+    },
+    "Maintenance": {
+      "focus": "utility rooms, mechanical labs, server rooms, electrical panels",
+      "greeting": "Maintenance mode active. Showing routes to infrastructure facilities.",
+      "emergency_contacts": ["Security Office"]
+    },
+    "Support Staff": {
+      "focus": "washrooms, cafeteria kitchens, supply rooms, administrative offices",
+      "greeting": "Support staff mode active. Showing operational routes.",
+      "emergency_contacts": ["Security Office"]
+    }
+  }
+}

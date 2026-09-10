@@ -1,135 +1,100 @@
-# AI Campus Navigator
+# CampusAI – Inclusive Smart Campus Copilot
 
-[![Python Version](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org)
-[![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)](https://streamlit.io)
-[![Gemini AI](https://img.shields.io/badge/AI-Gemini--Flash-orange)](https://deepmind.google/technologies/gemini/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-red)](https://streamlit.io)
+[![Gemini AI](https://img.shields.io/badge/AI-Google%20Gemini-orange)](https://ai.google.dev/)
 
-The AI Campus Navigator is an intelligent, highly interactive routing and pathfinding application explicitly designed to help students, faculty, and visitors seamlessly navigate sprawling, complex university campuses. To achieve millimeter precision, the system natively parses incredibly rich OpenStreetMap (OSM) XML data. It structures this vast geographical information into highly optimized, navigable graph networks using powerful Python libraries like NetworkX and OSMnx, ensuring that every walkway, building entrance, and accessibility ramp is accurately represented in the routing matrix.
+CampusAI is an inclusive smart-campus navigation assistant. It combines OpenStreetMap data, graph-search routing, accessibility-aware navigation, and a role-aware Gemini chat interface in a Streamlit application.
 
-Under the hood, the application serves as an advanced sandbox for graph theory and spatial analysis. Users can dynamically toggle between multiple sophisticated graph traversal algorithms to find their optimal route. This includes fundamental approaches like Breadth-First Search (BFS) and Depth-First Search (DFS), up to cost-aware algorithms like Uniform Cost Search (UCS) and the highly optimized, heuristic-driven A* algorithm. This flexibility ensures that the platform can instantly calculate the shortest, fastest, or most accessible paths regardless of campus size or topological complexity.
+## Features
 
-What truly elevates this application is its seamless integration with the advanced Google Gemini 2.5 Flash AI model. This provides users with a powerful natural language interface, allowing them to ask conversational, context-aware questions about campus locations, historical building information, and optimal paths. Whether a user is looking for the nearest open cafeteria or the most accessible route to a specific lecture hall, the Gemini-powered assistant interprets the request and coordinates with the routing engine to deliver precise, accessible answers through a clean, responsive Streamlit web interface.
+- **Natural-language routing:** Ask for directions between campus locations and display the route on the map.
+- **Role-aware assistance:** Responses can be tailored for students, faculty, visitors, security, maintenance, and support staff.
+- **Accessibility support:** Campus data records accessibility attributes that can be used by the routing experience.
+- **Interactive mapping:** Folium and Streamlit render campus maps and route results.
+- **Algorithm comparison:** Evaluate BFS, DFS, UCS, and A* variants.
+- **Offline fallback:** Location lookup, routing intent parsing, and campus information remain available without a Gemini key.
 
----
-
-## ✨ Features
-
-- **🗺️ Interactive Map rendering** — Generates interactive HTML maps with custom route paths overlaid dynamically using Folium.
-- **🧭 Dynamic Algorithm Picker** — Interactive comparisons of standard pathfinding solutions for the same source-destination nodes.
-- **💬 Natural Language Assistant** — Integrates Gemini AI to translate informal questions ("how do I get to hostel from main gate?") into source and destination nodes automatically.
-- **📈 Route Metrics** — Calculates total distance, estimated walking time, and list of nodes/waypoints passed.
-
-### 🧭 Pathfinding Algorithms Comparison
-
-| Algorithm | Heuristic | Optimality | Completeness | Complexity (Worst-Case) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Breadth-First Search (BFS)** | No | Yes (if uniform edge costs) | Yes | O(\|V\| + \|E\|) |
-| **Depth-First Search (DFS)** | No | No | No (in infinite spaces) | O(\|V\| + \|E\|) |
-| **Uniform Cost Search (UCS)** | No | Yes | Yes | O(\|E\| + \|V\| log \|V\|) |
-| **A\* Search** | Yes | Yes (if h(n) is admissible) | Yes | O(\|E\| + \|V\| log \|V\|) |
-
----
-
-## 🏗️ Project Architecture
-
-```
-ai-campus-navigator/
-├── LICENSE
-├── README.md
-├── app.py                     # Minimal Streamlit Main Entrypoint
-├── pyproject.toml             # Python Package configuration
-├── uv.lock                    # Fast Package Manager lockfile
-├── Dockerfile                 # Multi-stage Docker Container blueprint
-├── docker-compose.yml         # Compose Orchestrator configuration
-├── .env.example               # Template Environment credentials
-├── src/                       # Core Source Directory
-│   ├── logger.py              # Structured JSON logging service
-│   ├── pathfinding.py         # Pathfinding algorithms & POI definitions
-│   ├── ai_assistant.py        # Gemini AI Assistant engine
-│   └── ui/                    # Streamlit component modules
-│       ├── sidebar.py         # Sidebar rendering & chat inputs
-│       ├── map_viewer.py      # Map layer rendering
-│       └── comparison.py      # Benchmarking matrices renderer
-├── tests/                     # Automated test suite
-│   ├── test_pathfinding.py    # Unit tests for BFS, DFS, UCS, A* search
-│   └── test_ai_assistant.py   # Unit tests for NLP matching and normalization
-└── docs/                      # Mapping datasets & documents
-    ├── Extracted_Edges__from_KML_LineStrings_.csv
-    ├── Extracted_Nodes__from_KML_.csv
-    ├── map.png
-    └── ucs_hostel_path.png
-```
-
-### 🔀 System Data Flow
+## Architecture
 
 ```mermaid
 graph TD
-    OSM[attached_assets/map.osm] -->|ox.graph_from_xml| Pathfinder[src/pathfinding.py]
-    UserQuery[User Chat Input] -->|gemini.get_response| AI[src/ai_assistant.py]
-    AI -->|gemini-2.5-flash| GoogleAI[Google GenAI API]
-    AI -->|Parsed locations| Pathfinder
-    Pathfinder -->|nx.shortest_path| Algos[BFS, DFS, UCS, A* Search]
-    Algos -->|Route metrics & paths| View[src/ui/map_viewer.py]
-    View -->|st_folium| Map[Interactive Folium Map layer]
+    User[User] --> Chat[Streamlit Chat UI]
+    Chat -->|query + role + context| Assistant[GeminiAssistant]
+    Assistant -->|Gemini for general questions| Gemini[Google Gemini API]
+    Assistant -->|locations and route intent| Pathfinder[OSM Pathfinder]
+    Pathfinder --> Map[Folium Map]
+    CampusData[campus_data/*.json] --> Assistant
+    OSM[attached_assets/*.osm] --> Pathfinder
 ```
 
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology | Detail |
-| :--- | :--- | :--- |
-| **GUI Framework** | Streamlit | Rapid Python-native user dashboard |
-| **Network Analysis**| NetworkX, OSMnx | High-performance graph layouts and computations |
-| **Maps Renderer** | Folium | Leaflet-based interactive HTML mapping layers |
-| **AI Ingestion** | Google GenAI SDK | Gemini 2.5 Flash model |
-| **Package Manager** | UV | Modern, ultra-fast Python environment engine |
-
----
-
-## 🚀 Getting Started & Installation
+## Local setup
 
 ### Prerequisites
-- **Python 3.11+**
-- **uv** (Install via `curl -LsSf https://astral.sh/uv/install.sh | sh`)
 
-### Setup & Run
+- Python 3.11 or newer
+- `uv` recommended, or a standard Python virtual environment
+
+### Install and run
 
 ```bash
-# Clone the repository
-git clone https://github.com/vemana4/ai-campus-navigator.git
-cd ai-campus-navigator
-
-# Install dependencies using uv
+git clone https://github.com/jothikrishna1709-coder/CampusAI.git
+cd CampusAI
 uv sync
-
-# Configure Gemini API credentials
-mkdir -p .streamlit
-echo 'GEMINI_API_KEY = "your-api-key-here"' > .streamlit/secrets.toml
-
-# Launch the interactive pathfinder
 uv run streamlit run app.py
 ```
 
----
+For a Gemini-enabled experience, set the API key as an environment variable:
 
-## ☁️ Deploy on Render
+```bash
+# macOS/Linux
+export GEMINI_API_KEY="your-gemini-api-key"
 
-This repository includes a [`render.yaml`](render.yaml) Blueprint. In Render, choose **New → Blueprint**, connect this GitHub repository, and select the `render.yaml` file. Render will install the locked dependencies and start Streamlit on the platform-provided port.
+# Windows PowerShell
+$env:GEMINI_API_KEY = "your-gemini-api-key"
+```
 
-Before deploying, add `GEMINI_API_KEY` under the service's **Environment** settings. The application also works in offline fallback mode when the key is not provided, but Gemini-powered general questions will be unavailable.
+Never commit `secrets.toml`, `.env`, or API keys. Use environment variables locally and Render's secret environment-variable settings in production.
 
-The health check is available at `/_stcore/health`. Do not commit local `secrets.toml` or API keys; configure secrets in Render instead.
+## Testing
 
----
+Run the automated tests and syntax checks with:
 
-## 📜 License
+```bash
+uv run pytest -q
+uv run python -m compileall -q app.py src
+```
 
-This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
+## Deploy on Render
 
----
+The repository includes a [`render.yaml`](render.yaml) Blueprint for a free Render web service. In the Render dashboard, choose **New → Blueprint**, connect `jothikrishna1709-coder/CampusAI`, and deploy the detected service.
 
-<p align="center">
-  Built with ❤️ by <a href="https://github.com/vemana4">Vemana Hemanth Babu</a>
-</p>
+Add the following environment variable in the Render service settings:
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `GEMINI_API_KEY` | Optional | Enables Gemini-powered general campus answers; location parsing and offline fallback still work without it. |
+| `PLANET_API_KEY` | Optional | Enables any Planet-specific integrations used by the deployment. |
+
+The service binds to Render's `$PORT` value and exposes the Streamlit health endpoint at `/_stcore/health`. Automatic deploys are enabled for pushes to `main`.
+
+## Project structure
+
+| Path | Purpose |
+| --- | --- |
+| `app.py` | Streamlit application entry point |
+| `src/ai_assistant.py` | Role-aware assistant, location matching, and Gemini integration |
+| `src/pathfinding.py` | OSM graph loading and routing algorithms |
+| `src/ui/` | Chat, navigation, home, sidebar, and facilities views |
+| `campus_data/` | Campus locations and role definitions |
+| `attached_assets/` | OSM campus map data and supporting assets |
+| `tests/` | Automated unit tests |
+| `render.yaml` | Render deployment Blueprint |
+
+## Security note
+
+If an API key has ever been committed to Git history or pasted into a public issue, rotate it in [Google AI Studio](https://aistudio.google.com/) and update the replacement value only in Render's environment settings.
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
