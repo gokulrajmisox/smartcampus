@@ -1,0 +1,159 @@
+from,to,distance_m,line
+in out path_pt0,in out path_pt1,8.229606024464404,in out path
+in out path_pt1,in out path_pt2,163.1233288490347,in out path
+in out path_pt2,in out path_pt3,42.55972314027881,in out path
+in out path_pt3,in out path_pt4,27.89056745156219,in out path
+in out path_pt4,in out path_pt5,36.74230772656364,in out path
+in out path_pt5,in out path_pt6,37.63406366750633,in out path
+in out path_pt6,in out path_pt7,38.09049705302171,in out path
+in out path_pt7,in out path_pt8,53.812182028821454,in out path
+in out path_pt8,in out path_pt9,46.09107907233419,in out path
+in out path_pt9,in out path_pt10,43.43625613870538,in out path
+in out path_pt10,in out path_pt11,52.308254265906406,in out path
+in out path_pt11,in out path_pt12,14.737495679694131,in out path
+in out path_pt12,in out path_pt13,23.69275982140928,in out path
+in out path_pt13,in out path_pt14,30.737073958121865,in out path
+in out path_pt14,in out path_pt15,18.596023833122807,in out path
+in out path_pt15,in out path_pt16,152.4847408941097,in out path
+in out path_pt16,in out path_pt17,96.47918864495247,in out path
+in out path_pt17,in out path_pt18,55.65319146868169,in out path
+in out path_pt18,in out path_pt19,24.680283823257284,in out path
+in out path_pt19,in out path_pt20,19.77650113633038,in out path
+in out path_pt20,in out path_pt21,35.517229693464955,in out path
+in out path_pt21,in out path_pt22,9.51131909785504,in out path
+in out path_pt22,in out path_pt23,20.17491088766464,in out path
+in out path_pt23,in out path_pt24,11.39658547008132,in out path
+in out path_pt24,in out path_pt25,30.028453715107485,in out path
+in out path_pt25,in out path_pt26,114.92512557865996,in out path
+in out path_pt26,in out path_pt27,38.51349426472572,in out path
+in out path_pt27,in out path_pt28,97.78258196648227,in out path
+in out path_pt28,in out path_pt29,79.42085889241923,in out path
+in out path_pt29,in out path_pt30,47.5830737346905,in out path
+in out path_pt30,in out path_pt31,53.335057147547566,in out path
+in out path_pt31,in out path_pt32,57.187110995715344,in out path
+in out path_pt32,in out path_pt33,62.65979515745057,in out path
+in out path_pt33,in out path_pt34,60.12462066811436,in out path
+in out path_pt34,in out path_pt35,76.41304076460165,in out path
+in out path_pt35,in out path_pt36,55.64426461596016,in out path
+in out path_pt36,in out path_pt37,46.48183151402296,in out path
+in out path_pt37,in out path_pt38,84.12879126539023,in out path
+in out path_pt38,in out path_pt39,130.69681313340456,in out path
+block a path_pt0,block a path_pt1,95.71457524245035,block a path
+block a path_pt1,block a path_pt2,27.38240105280531,block a path
+block a path_pt2,block a path_pt3,38.26783438517961,block a path
+block a path_pt3,block a path_pt4,98.94388097731294,block a path
+block b path_pt0,block b path_pt1,105.14884521788002,block b path
+block b path_pt1,block b path_pt2,29.071719956174977,block b path
+block b path_pt2,block b path_pt3,35.01135303007585,block b path
+block b path_pt3,block b path_pt4,101.53733051112947,block b path
+block b path_pt4,block b path_pt5,34.169073078552465,block b path
+block b path_pt5,block b path_pt6,51.41202070315433,block b path
+block b path_pt6,block b path_pt7,43.174631452648185,block b path
+block b path_pt7,block b path_pt8,48.720796562514806,block b path
+block b path_pt8,block b path_pt9,52.32017484420893,block b path
+block b path_pt9,block b path_pt10,57.486437310757594,block b path
+a to b connection_pt0,a to b connection_pt1,102.76351761811677,a to b connection
+a to b connection_pt1,a to b connection_pt2,2.429714780017872,a to b connection
+food court_pt0,food court_pt1,27.041110094073183,food court
+path_pt0,path_pt1,104.81812628556959,path
+path_pt1,path_pt2,75.11995246976443,path
+path_pt0_1,path_pt1_1,106.61171190870421,path
+path_pt0_2,path_pt1_2,89.7212377504537,path
+path_pt1_2,path_pt2_1,56.101410735334,path
+sports_pt0,sports_pt1,209.27728005142777,sports
+sports_pt1,sports_pt2,59.76561679589912,sports
+sports_pt2,sports_pt3,61.510639808018745,sports
+sports_pt3,sports_pt4,80.21119345627608,sports
+sports_pt4,sports_pt5,43.591848465517,sports
+sports_pt5,sports_pt6,26.308822054070856,sports
+sports_pt6,sports_pt7,62.175604004382876,sports
+Untitled path_pt0,Untitled path_pt1,45.97727648270586,Untitled path
+path_pt0_3,path_pt1_3,50.623724354032,path
+path_pt1_3,path_pt2_2,179.68232134913728,path
+path_pt2_2,path_pt3,98.60258724653688,path
+path_pt3,path_pt4,137.08666889251913,path
+path_pt4,path_pt5,47.92307178649847,path
+path_pt5,path_pt6,19.349296140232692,path
+path_pt0_4,path_pt1_4,95.34226790638954,path
+path_pt0_5,path_pt1_5,83.21940354903411,path
+Untitled path_pt0_1,Untitled path_pt1_1,12.49920863663601,Untitled path
+Untitled path_pt0_2,Untitled path_pt1_2,26.66945013608368,Untitled path
+in out path_pt1,in out path_pt0,8.229606024464404,in out path
+in out path_pt2,in out path_pt1,163.1233288490347,in out path
+in out path_pt3,in out path_pt2,42.55972314027881,in out path
+in out path_pt4,in out path_pt3,27.89056745156219,in out path
+in out path_pt5,in out path_pt4,36.74230772656364,in out path
+in out path_pt6,in out path_pt5,37.63406366750633,in out path
+in out path_pt7,in out path_pt6,38.09049705302171,in out path
+in out path_pt8,in out path_pt7,53.812182028821454,in out path
+in out path_pt9,in out path_pt8,46.09107907233419,in out path
+in out path_pt10,in out path_pt9,43.43625613870538,in out path
+in out path_pt11,in out path_pt10,52.308254265906406,in out path
+in out path_pt12,in out path_pt11,14.737495679694131,in out path
+in out path_pt13,in out path_pt12,23.69275982140928,in out path
+in out path_pt14,in out path_pt13,30.737073958121865,in out path
+in out path_pt15,in out path_pt14,18.596023833122807,in out path
+in out path_pt16,in out path_pt15,152.4847408941097,in out path
+in out path_pt17,in out path_pt16,96.47918864495247,in out path
+in out path_pt18,in out path_pt17,55.65319146868169,in out path
+in out path_pt19,in out path_pt18,24.680283823257284,in out path
+in out path_pt20,in out path_pt19,19.77650113633038,in out path
+in out path_pt21,in out path_pt20,35.517229693464955,in out path
+in out path_pt22,in out path_pt21,9.51131909785504,in out path
+in out path_pt23,in out path_pt22,20.17491088766464,in out path
+in out path_pt24,in out path_pt23,11.39658547008132,in out path
+in out path_pt25,in out path_pt24,30.028453715107485,in out path
+in out path_pt26,in out path_pt25,114.92512557865996,in out path
+in out path_pt27,in out path_pt26,38.51349426472572,in out path
+in out path_pt28,in out path_pt27,97.78258196648227,in out path
+in out path_pt29,in out path_pt28,79.42085889241923,in out path
+in out path_pt30,in out path_pt29,47.5830737346905,in out path
+in out path_pt31,in out path_pt30,53.335057147547566,in out path
+in out path_pt32,in out path_pt31,57.187110995715344,in out path
+in out path_pt33,in out path_pt32,62.65979515745057,in out path
+in out path_pt34,in out path_pt33,60.12462066811436,in out path
+in out path_pt35,in out path_pt34,76.41304076460165,in out path
+in out path_pt36,in out path_pt35,55.64426461596016,in out path
+in out path_pt37,in out path_pt36,46.48183151402296,in out path
+in out path_pt38,in out path_pt37,84.12879126539023,in out path
+in out path_pt39,in out path_pt38,130.69681313340456,in out path
+block a path_pt1,block a path_pt0,95.71457524245035,block a path
+block a path_pt2,block a path_pt1,27.38240105280531,block a path
+block a path_pt3,block a path_pt2,38.26783438517961,block a path
+block a path_pt4,block a path_pt3,98.94388097731294,block a path
+block b path_pt1,block b path_pt0,105.14884521788002,block b path
+block b path_pt2,block b path_pt1,29.071719956174977,block b path
+block b path_pt3,block b path_pt2,35.01135303007585,block b path
+block b path_pt4,block b path_pt3,101.53733051112947,block b path
+block b path_pt5,block b path_pt4,34.169073078552465,block b path
+block b path_pt6,block b path_pt5,51.41202070315433,block b path
+block b path_pt7,block b path_pt6,43.174631452648185,block b path
+block b path_pt8,block b path_pt7,48.720796562514806,block b path
+block b path_pt9,block b path_pt8,52.32017484420893,block b path
+block b path_pt10,block b path_pt9,57.486437310757594,block b path
+a to b connection_pt1,a to b connection_pt0,102.76351761811677,a to b connection
+a to b connection_pt2,a to b connection_pt1,2.429714780017872,a to b connection
+food court_pt1,food court_pt0,27.041110094073183,food court
+path_pt1,path_pt0,104.81812628556959,path
+path_pt2,path_pt1,75.11995246976443,path
+path_pt1_1,path_pt0_1,106.61171190870421,path
+path_pt1_2,path_pt0_2,89.7212377504537,path
+path_pt2_1,path_pt1_2,56.101410735334,path
+sports_pt1,sports_pt0,209.27728005142777,sports
+sports_pt2,sports_pt1,59.76561679589912,sports
+sports_pt3,sports_pt2,61.510639808018745,sports
+sports_pt4,sports_pt3,80.21119345627608,sports
+sports_pt5,sports_pt4,43.591848465517,sports
+sports_pt6,sports_pt5,26.308822054070856,sports
+sports_pt7,sports_pt6,62.175604004382876,sports
+Untitled path_pt1,Untitled path_pt0,45.97727648270586,Untitled path
+path_pt1_3,path_pt0_3,50.623724354032,path
+path_pt2_2,path_pt1_3,179.68232134913728,path
+path_pt3,path_pt2_2,98.60258724653688,path
+path_pt4,path_pt3,137.08666889251913,path
+path_pt5,path_pt4,47.92307178649847,path
+path_pt6,path_pt5,19.349296140232692,path
+path_pt1_4,path_pt0_4,95.34226790638954,path
+path_pt1_5,path_pt0_5,83.21940354903411,path
+Untitled path_pt1_1,Untitled path_pt0_1,12.49920863663601,Untitled path
+Untitled path_pt1_2,Untitled path_pt0_2,26.66945013608368,Untitled path

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  navigator:
+    build: .
+    container_name: ai_campus_navigator
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    restart: unless-stopped
