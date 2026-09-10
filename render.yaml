@@ -1,11 +1,11 @@
 services:
   - type: web
-    name: campusai
-    env: python
+    name: smartcampus-docker
+    env: docker
     plan: free
     region: singapore
-    buildCommand: pip install uv && uv sync --frozen
-    startCommand: uv run streamlit run app.py --server.port=$PORT --server.address=0.0.0.0
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     healthCheckPath: /_stcore/health
     autoDeploy: true
     envVars:
