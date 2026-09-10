@@ -288,7 +288,7 @@ class CampusPathfinder:
         elif algorithm == "A* (Combined)":
             path, cost, explored = self.astar_combined(start_node, end_node, accessibility_mode)
         else:
-            path, cost, explored = self.astar_osm(start_node, end_node, accessibility_mode)
+            path, cost, explored = self.astar_osm(start_node, end_node, accessibility_mode=accessibility_mode)
 
         if not path:
             logger.warning(f"No path found between {start_name} and {end_name}")

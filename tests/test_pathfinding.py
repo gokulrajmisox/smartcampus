@@ -72,3 +72,9 @@ def test_path_distance_calculation(pathfinder):
     assert path is not None
     calculated_dist = pathfinder.calculate_path_distance(path)
     assert calculated_dist == cost
+
+def test_route_has_nonzero_distance_with_production_pois(pathfinder):
+    """The deployed campus POIs must not collapse to one fallback graph node."""
+    result = pathfinder.find_path("Main Gate", "Library", "A*")
+
+    assert result["metrics"]["distance"] > 0

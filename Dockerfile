@@ -25,6 +25,9 @@ RUN uv sync --frozen --no-dev
 COPY app.py ./
 COPY src/ ./src/
 COPY attached_assets/ ./attached_assets/
+COPY campus_data/ ./campus_data/
+COPY assets/ ./assets/
+COPY .streamlit/ ./.streamlit/
 COPY docs/ ./docs/
 
 # Expose Streamlit default port
