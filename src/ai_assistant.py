@@ -21,6 +21,7 @@ class GeminiAssistant:
         """Initialize the Gemini AI assistant with campus knowledge."""
         # Use provided API key or fallback to environment variables
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
+        self.model_name = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash-lite")
 
         if self.api_key:
             try:
@@ -252,7 +253,7 @@ Please provide a helpful, action-oriented response. If the question is about nav
 
                 logger.info("Querying Gemini GenAI model...")
                 response = self.client.models.generate_content(
-                    model="gemini-3.5-flash",
+                    model=self.model_name,
                     contents=prompt
                 )
 
