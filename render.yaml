@@ -15,3 +15,5 @@ services:
         value: gemini-3.5-flash-lite
       - key: PLANET_API_KEY
         sync: false
+      - key: PLANET_MOSAIC_ID
+        sync: false

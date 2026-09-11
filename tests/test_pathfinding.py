@@ -78,3 +78,11 @@ def test_route_has_nonzero_distance_with_production_pois(pathfinder):
     result = pathfinder.find_path("Main Gate", "Library", "A*")
 
     assert result["metrics"]["distance"] > 0
+
+def test_map_contains_reliable_base_and_satellite_layers(pathfinder):
+    """Map rendering must not depend on Planet credentials being present."""
+    html = pathfinder.create_base_map().get_root().render()
+
+    assert "OpenStreetMap" in html
+    assert "World_Imagery" in html
+    assert "L.control.layers" in html

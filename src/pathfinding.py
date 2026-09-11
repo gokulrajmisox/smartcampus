@@ -233,18 +233,40 @@ class CampusPathfinder:
         return location.get('type', 'other').replace('_', ' ').title()
 
     def create_base_map(self) -> folium.Map:
-        """Create a base map with all roads and POIs."""
+        """Create a base map with selectable street, satellite, and optional Planet layers."""
         planet_key = os.environ.get("PLANET_API_KEY", "")
-        if planet_key:
-            # We use Esri as the base, because we don't have the specific Planet Mosaic ID.
-            # But the user asked to use their key, so we'll add Esri World Imagery which is highly detailed.
-            tiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
-            attr = 'Esri'
-        else:
-            tiles = 'CartoDB positron'
-            attr = 'CartoDB'
+        planet_mosaic_id = os.environ.get("PLANET_MOSAIC_ID", "")
 
-        m = folium.Map(location=self.center, zoom_start=17, tiles=tiles, attr=attr)
+        # Keep a public street layer as the guaranteed default. Do not make the
+        # map depend on a Planet key or a third-party imagery request.
+        m = folium.Map(location=self.center, zoom_start=17, tiles=None)
+        folium.TileLayer(
+            tiles="OpenStreetMap",
+            name="Street map",
+            control=True,
+            show=True,
+        ).add_to(m)
+        folium.TileLayer(
+            tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            attr="Esri",
+            name="Satellite imagery (Esri)",
+            overlay=True,
+            control=True,
+            show=False,
+        ).add_to(m)
+
+        if planet_key and planet_mosaic_id:
+            folium.TileLayer(
+                tiles=(
+                    "https://tiles.planet.com/basemaps/v1/planet-tiles/"
+                    f"{planet_mosaic_id}/gmap/{{z}}/{{x}}/{{y}}.png?api_key={planet_key}"
+                ),
+                attr="Planet Labs",
+                name="Satellite imagery (Planet)",
+                overlay=True,
+                control=True,
+                show=False,
+            ).add_to(m)
 
         for _, row in self.edges.iterrows():
             coords = [(lat, lon) for lon, lat in row.geometry.coords]
@@ -257,6 +279,8 @@ class CampusPathfinder:
                 tooltip=name,
                 icon=folium.Icon(color="blue", icon="info-sign")
             ).add_to(m)
+
+        folium.LayerControl(collapsed=False).add_to(m)
 
         return m
 
