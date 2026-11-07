@@ -100,6 +100,21 @@ uv run streamlit run app.py
 
 The application normally starts at `http://localhost:8501`.
 
+### Before you demo
+
+Run the pre-flight check before presenting, or after a fresh clone. It
+verifies the Python version, the installed dependencies, the campus data
+files, and the OSM graph -- and fails loudly instead of letting the app
+silently fall back to two demo locations:
+
+```bash
+python3 scripts/check_setup.py
+```
+
+Exit code 0 means the demo is ready to run. A missing Gemini key is only
+a warning: local routing works without it, only Gemini-powered answers are
+disabled.
+
 ### Optional environment variables
 
 Copy `.env.example` to `.env` for local development, or export variables directly. Never commit real keys.
